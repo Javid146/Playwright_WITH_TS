@@ -1,0 +1,26 @@
+{
+  "name": "playwright_with_ts",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test:dev": "cross-env TEST_ENV=dev npx playwright test",
+    "test_UAT": "cross-env TEST_ENV=uat npx playwright test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@playwright/test": "^1.54.2",
+    "@types/node": "^24.1.0",
+    "allure-playwright": "^2.15.1",
+    "playwright": "^1.54.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "cross-env": "^10.0.0",
+    "csv-parse": "^6.1.0",
+    "dotenv": "^17.2.1"
+  }
+}
