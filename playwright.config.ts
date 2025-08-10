@@ -53,15 +53,15 @@ export default defineConfig({
         }
       },
 
-      // {
-      //   name: 'Firefox',
+      {
+        name: 'Firefox',
       //   dependencies: ["authSessionSetup"],
 
-      //   use: {
-      //     ...devices['Desktop Firefox'],
+        use: {
+          ...devices['Desktop Firefox'],
       //     storageState: "./playwright/.auth/auth.json"
-      //   },
-      // },
+        },
+      },
 
       // {
       //   name: 'WebKit',
