@@ -34,7 +34,7 @@ Note: The payload URL http://localhost:8080/github-webhook/ will fail for GitHub
 For practice, we will use ngrok, which creates a secure tunnel from a public URL to your local machine, allowing GitHub to send webhook events to localhost:8080.
 
 Ngrok setup is already done. So in CMD each time to use webhook run: "C:\Users\Dell\ngrok\ngrok.exe" http 8080 --> Copy new forwarding URL (e.g https://1b2d74082d87.ngrok-free.app) --> Add new URL + "github-webhook/" to GitHub Payload URL. e.g. https://e8780d333713.ngrok-free.app/github-webhook/
-5. Push new changes from VsCode to Github to check how webhook works
+5. Push new changes from VsCode to Github to check how webhook works. Done
 
 
 
