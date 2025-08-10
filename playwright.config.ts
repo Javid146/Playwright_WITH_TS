@@ -6,21 +6,18 @@ dotenv.config({
   path: `./env-files/.env.${process.env.TEST_ENV}`
 })
 
-console.log("💡 ALLURE_RESULTS_DIR FROM CONFIG FILE:", process.env.ALLURE_RESULTS_DIR);
-
-
 export default defineConfig({
   // globalSetup: './global-auth-setup.ts',
   testDir: './tests',
-  fullyParallel: false,
+  fullyParallel: true,
   /*fail build in CI if you accdentally left test.only in source code. ! means false (no), !! means true (no no)*/
   forbidOnly: !!process.env.CI,
   /*retry  Run failed tests 2 times if running in CI*/
-  retries: process.env.CI ? 2 : 1,
+  retries: process.env.CI ? 1 : 0,
   /*Run tests with 1 worker in CI (to avoid flaky parallelism), otherwise use 3 workers locally for speed*/
   workers: process.env.CI ? 1 : 3,
-  // reporter: [['html', { open: 'on-failure' }]],
-  reporter: [['allure-playwright', { outputFolder: "GoogleAllureReportFolder" }]],
+  reporter: [['html', { open: 'on-failure' }]],
+  // reporter: [['allure-playwright', { outputFolder: "GoogleAllureReportFolder" }]],
   /*by default timeout is 30 secs even if it is not defined here*/
   timeout: 30000, //ms
   use: {
@@ -30,12 +27,9 @@ export default defineConfig({
       "Content-Type": "application/json"
     },
     headless: false,
-    // screenshot: 'only-on-failure',
-    // video: 'retain-on-failure',
-    // trace: 'on',
     screenshot: 'on',
     video: 'on',
-    trace: 'on'
+    trace: 'retain-on-failure'
     // storageState:"./playwright/.auth/auth.json",  
   },
   projects:
@@ -53,22 +47,22 @@ export default defineConfig({
         }
       },
 
-      // {
-      //   name: 'Firefox',
-      //   dependencies: ["authSessionSetup"],
+      {
+        name: 'Firefox',
+        // dependencies: ["authSessionSetup"],
 
-      //   use: {
-      //     ...devices['Desktop Firefox'],
-      //     storageState: "./playwright/.auth/auth.json"
-      //   },
-      // },
+        use: {
+          ...devices['Desktop Firefox'],
+          // storageState: "./playwright/.auth/auth.json"
+        },
+      },
 
-      // {
-      //   name: 'WebKit',
-      //   use: {
-      //     ...devices['Desktop Safari'],
-      //   },
-      // },
+      {
+        name: 'WebKit',
+        use: {
+          ...devices['Desktop Safari'],
+        },
+      },
 
       // {
       //   name: 'iphone15Plus',

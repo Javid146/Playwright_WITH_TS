@@ -1,0 +1,71 @@
+Jenkins
+
+Manually build job:
+
+Option A - Use Local Project Path:
+1. Build steps --> Add build step --> execute windows batch command
+
+2. cd C:\Users\Dell\OneDrive\Desktop\PlayWright_With_TS
+npm ci && npx playwright install --with-deps && npx playwright test tests/Allure  
+
+//ci stands for “clean install” or “continuous integration” and installs all deps, 
+//npx playwright install --with-deps installs all browsers
+3. Build now
+
+Option B - Use Github:
+1. Click on job --> Configure --> Source Code Management --> Check Git radio btn
+2. Add Repository URL. If Repo is not public add Credentials as well
+Branch Specifier: */main or */master depending or project's branch name
+3. Build Steps --> Add build step --> Execute Windows batch command: 
+npm ci && npx playwright install --with-deps && npx playwright test tests/Allure --project=firefox
+4. Apply --> Save --> Build now
+
+
+
+Build job with parameters:
+1. Cick job --> Configure --> General
+2. This project is parameterized --> Add parameter --> Choice parameter
+
+You can e.g. make parameter options for browsers and tagnames which will provide 2 dropdowns (1 for browser, 1 for tag):
+a. Name: Browser
+b. Choices:
+firefox
+webkit
+chromium
+
+a. Name: TagName
+b. Choices:
+UAT
+DEV
+
+3. Apply/Save
+4. Windows batch command to run test will be: npx playwright test --project=%Browser% --grep=%TagName%
+Whichever browser you choose before building job test will run on it. %Browser% because name of param above is Browser.
+Whichever tag you add in test near test name that test will run only. E.g. from dropdown I choose DEV tag it means tests with @DEV tag will run only.
+
+
+
+
+
+Trigger and build job:
+Option 1 - Build periodically:
+1. Triggers --> Build periodically --> Schedule with cron expression: e.g 15 3 * * * (every day at 3:15am)
+
+
+
+
+
+
+
+
+Post-build Actions:
+
+HTML reports:
+1. Install HTML publisher plugin in Jenkins
+2. Manage Jenkins --> Script console: 
+System.setProperty("hudson.model.DirectoryBrowserSupport.CSP", "")  //this allows to bypass content security policy to see test html reports on Jenkins after job build.
+3. Post-build Actions --> Publish HTML reports:
+a. HTML directory to archive: add full path from framework where you want report to be archived: e.g. C:\Users\Dell\OneDrive\Desktop\PlayWright_With_TS\playwright-report
+b. Report title: any title you want. It will be displayed in Jenkins after build.
+
+

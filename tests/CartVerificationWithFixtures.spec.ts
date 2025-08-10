@@ -1,7 +1,7 @@
 import { expect } from "@playwright/test"
 import { test } from "../fixtures/POMFixtures"
 
-test('Verify Cart', async ({ loginPage, homePage, cartPage }) => {
+test('Verify Cart @DEV', async ({ loginPage, homePage, cartPage }) => {
 
     await loginPage.openApp()
     await loginPage.login("standard_user", "secret_sauce")
