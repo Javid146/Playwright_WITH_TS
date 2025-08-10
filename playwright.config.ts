@@ -49,11 +49,11 @@ export default defineConfig({
 
       {
         name: 'Firefox',
-        // dependencies: ["authSessionSetup"],
+      //   dependencies: ["authSessionSetup"],
 
         use: {
           ...devices['Desktop Firefox'],
-          // storageState: "./playwright/.auth/auth.json"
+      //     storageState: "./playwright/.auth/auth.json"
         },
       },
 
