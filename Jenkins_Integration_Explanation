@@ -12,13 +12,29 @@ npm ci && npx playwright install --with-deps && npx playwright test tests/Allure
 //npx playwright install --with-deps installs all browsers
 3. Build now
 
-Option B - Use Github:
+Option B, Version 1 - Use Github:
 1. Click on job --> Configure --> Source Code Management --> Check Git radio btn
 2. Add Repository URL. If Repo is not public add Credentials as well
 Branch Specifier: */main or */master depending or project's branch name
 3. Build Steps --> Add build step --> Execute Windows batch command: 
 npm ci && npx playwright install --with-deps && npx playwright test tests/Allure --project=firefox
 4. Apply --> Save --> Build now
+
+
+
+Option B, Version 2 - Use Github with webhooks:
+1. Click on job --> Configure --> Source Code Management --> Check Git radio btn
+2. Add Repository URL. If Repo is not public add Credentials as well
+Branch Specifier: */main or */master depending or project's branch name
+3. Triggers --> GitHub hook trigger for GITScm polling
+4. In GitHub --> Click project Settings --> Webhooks --> Add Webhook:
+Payload URL: URL should be http://localhost:8080/github-webhook/, because my local Jenkins runs at 8080. But:
+
+Note: The payload URL http://localhost:8080/github-webhook/ will fail for GitHub webhooks because localhost:8080 refers to local machine, which is not accessible from the internet. In a workplace setup, you would typically use a publicly accessible URL provided by your company.
+For practice, we will use ngrok, which creates a secure tunnel from a public URL to your local machine, allowing GitHub to send webhook events to localhost:8080.
+
+In CMD each time to use webhook run: "C:\Users\Dell\ngrok\ngrok.exe" http 8080 --> Copy new forwarding URL (e.g https://1b2d74082d87.ngrok-free.app) --> Add this URL to GitHub Payload URL. 
+5. Push new changes from VsCode to Github to check how webhook works
 
 
 
