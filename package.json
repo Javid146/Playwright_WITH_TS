@@ -12,6 +12,7 @@
   "description": "",
   "devDependencies": {
     "@playwright/test": "^1.54.2",
+    "@types/crypto-js": "^4.2.2",
     "@types/node": "^24.1.0",
     "allure-playwright": "^2.15.1",
     "playwright": "^1.54.1",
@@ -20,6 +21,7 @@
   },
   "dependencies": {
     "cross-env": "^10.0.0",
+    "crypto-js": "^4.2.0",
     "csv-parse": "^6.1.0",
     "dotenv": "^17.2.1"
   }

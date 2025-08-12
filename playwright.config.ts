@@ -1,9 +1,15 @@
 import { defineConfig, devices } from '@playwright/test';
 import dotenv from "dotenv"
+import { dot } from 'node:test/reporters';
+import path from 'path';
+
+// dotenv.config({
+//   // path: process.env.TEST_ENV ? `./env-files/.env.${process.env.TEST_ENV}` : `./env-files/.env.dev`
+//   path: `./env-files/.env.${process.env.TEST_ENV}`
+// })
 
 dotenv.config({
-  // path: process.env.TEST_ENV ? `./env-files/.env.${process.env.TEST_ENV}` : `./env-files/.env.dev`
-  path: `./env-files/.env.${process.env.TEST_ENV}`
+  path: path.resolve('env-files', '.env') //this means same as above path but simple way
 })
 
 export default defineConfig({

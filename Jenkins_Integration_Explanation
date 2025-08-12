@@ -26,7 +26,11 @@ Option B, Version 2 - Use Github with webhooks:
 1. Click on job --> Configure --> Source Code Management --> Check Git radio btn
 2. Add Repository URL. If Repo is not public add Credentials as well
 Branch Specifier: */main or */master depending or project's branch name
-3. Triggers --> GitHub hook trigger for GITScm polling
+3. Triggers --> GitHub hook trigger for GITScm polling 
+OR
+There can be Triggers --> Poll SCM:
+Schedule: e.g. */30 * * * * --> This will check github every scheduled time regularly not depending on Webhook. If there is code change in Github it will build job.
+In this case step 4 can be skipped.
 4. In GitHub --> Click project Settings --> Webhooks --> Add Webhook:
 Payload URL: URL should be http://localhost:8080/github-webhook/, because my local Jenkins runs at 8080. But:
 
