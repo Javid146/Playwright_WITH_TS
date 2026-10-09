@@ -30,7 +30,7 @@ This will create folder called GoogleAllureReportFolder (The Raw Test Data, Not 
 
 3. npx playwright test tests/Allure 
 
-if you didn't already set reporter inconfig file then you can do as below via terminals:
+if you didn't already set reporter in config file then you can do as below via terminals:
 2.a. On Windows CMD:
 set ALLURE_RESULTS_DIR=GoogleAllureReportFolder
 3.a. npx playwright test tests/Allure  --reporter=allure-playwright
@@ -55,6 +55,7 @@ Options:
   trace: 'on'
 
 6.  in order to view trace its zip needs to be downloaded from allure report and zip folder needs to be pasted on https://test.playwright.dev to view.
-6.a. or you can just do it locally: npx playwright show-trace path\to\trace.zip. By default, Playwright stores test artifacts in the test-results folder.
+6.a. or you can just do it via terminal: 
+npx playwright show-trace path\to\trace.zip. By default, Playwright stores test artifacts in the test-results folder.
 */
 

@@ -29,6 +29,10 @@ test('Encrypt Decrypt Sensitive Data in Playwright', async ({ page }) => {
 test.skip("Encrypt Decrypt 2", async ({ page }) => {
     const encUname: any = process.env.encryptedUsernameOutput;
     const encPwd: any = process.env.encryptedPasswordOutput;
+
+    if (!encUname || !encPwd) {
+        throw new Error("Encrypted credentials are missing from .env");
+    }
     const decryptedUname = decryptData(encUname);
     const decryptPwd = decryptData(encPwd);
 
