@@ -16,7 +16,7 @@ test("Annotate Test Practice Test 1", {
 
 //array of annotations
 test("Annotate Test Practice Test 2", {
-  tag: "@UI",
+  tag: "@UI", //or array tag: ["@UI", "@Regression", "@Smoke"]
   annotation: [
     {
       type: "Google Title Verification",

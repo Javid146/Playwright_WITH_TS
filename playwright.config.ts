@@ -3,10 +3,19 @@ import dotenv from "dotenv"
 import { dot } from 'node:test/reporters';
 import path from 'path';
 
-// dotenv.config({
-//   // path: process.env.TEST_ENV ? `./env-files/.env.${process.env.TEST_ENV}` : `./env-files/.env.dev`
-//   path: `./env-files/.env.${process.env.TEST_ENV}`
-// })
+/* dotenv.config({
+  option 1. path: process.env.TEST_ENV ? `./env-files/.env.${process.env.TEST_ENV}` : `./env-files/.env.dev`
+  option 2. path: `./env-files/.env.${process.env.TEST_ENV}`
+}) 
+
+`.env.${process.env.TEST_ENV}` = any of the env files in the env-files folder. The ${process.env.TEST_ENV} will be replaced with the value of the TEST_ENV environment variable.
+./ = current directory, so it will look for the env-files folder in the root of the project.
+env-files/ = folder name.
+.env.${process.env.TEST_ENV} = file name. ${process.env.TEST_ENV} will be replaced with the value of the TEST_ENV environment variable. 
+For example, if TEST_ENV is set to "dev", it will look for .env.dev file. 
+: `./env-files/.env.dev` = If TEST_ENV is not set, it will look for .env.dev file as default.
+`` = is called template literal in JavaScript. It allows you to embed expressions inside string literals using ${expression} syntax.
+*/
 
 dotenv.config({
   path: path.resolve('env-files', '.env') //this means same as above path but simple way

@@ -7,7 +7,13 @@ test("Handle Multiple Environments", async ({ page }) => {
     console.log(process.env.USERNAME1);
     console.log(process.env.PASSWORD);
 
-    // const urlVal = <string> process.env.URL; or as below. Defines that type is string
+    /* 
+    const urlVal = <string> process.env.URL; or as below. Defines that type is string
+
+    process.env.URL could be either a string or undefined.
+    By adding as string, you tell TypeScript: "Treat this value as a string."
+    But there is an important catch: it doesn't check whether the value actually exists.
+    */
     const urlVal = process.env.URL as string;
 
     await page.goto(urlVal);

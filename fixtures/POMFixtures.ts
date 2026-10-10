@@ -5,7 +5,7 @@ import { CartPage } from "../pages/CartPage"
 
 type myPOMFixtures = { //creating custom fixtures here. so to not initiate above page files in every test file
 
-    loginPages: LoginPage
+    loginPage: LoginPage
     homePage: HomePage
     cartPage: CartPage
 }
@@ -19,7 +19,7 @@ export const test = baseTest.extend<myPOMFixtures>({ //exporting this fixture so
 */
 
     //page is built-in fixture, use is callback function (callback function is a function that is passed as an argument to another function, and is called later)
-    loginPages: async ({ page }, use) => { //loginPage fixture is exported to be used in CartVerificationWithFixtures
+    loginPage: async ({ page }, use) => { //loginPage fixture is exported to be used in CartVerificationWithFixtures
         const loginPg = new LoginPage(page)
         await use(loginPg)
     },
