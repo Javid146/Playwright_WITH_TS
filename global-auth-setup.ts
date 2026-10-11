@@ -2,22 +2,25 @@ import { chromium, expect } from "playwright/test";
 
 async function globalAuthSetup() {
 
-    const browser = await chromium.launch();
-    const context = await browser.newContext()
-    const page = await context.newPage()
+   const browser = await chromium.launch();
+   const context = await browser.newContext()
+   const page = await context.newPage()
 
-    const url = 'https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index'
-    await page.goto(url); await page.getByPlaceholder('Username').fill('Admin');
-    await page.getByPlaceholder('Password').fill('admin123');
-    await page.getByRole('button', { name: 'Login' }).click();
-    await page.waitForURL(url);
-    await expect(page.getByRole('heading', { name: 'Dashboard' })).toBeVisible();
+   const url = 'https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index'
+   await page.goto(url); await page.getByPlaceholder('Username').fill('Admin');
+   await page.getByPlaceholder('Password').fill('admin123');
+   await page.getByRole('button', { name: 'Login' }).click();
+   await page.waitForURL(url);
+   await expect(page.getByRole('heading', { name: 'Dashboard' })).toBeVisible();
 
-    //Save authentication/session state to auth.json after login — so you can reuse it in later tests without logging in again
-    await page.context().storageState({ path: "./playwright/.auth/auth.json" })
+   //Save authentication/session state to auth.json after login — so you can reuse it in later tests without logging in again
+   await page.context().storageState({ path: "./playwright/.auth/auth.json" })
+
+   await browser.close();
+
 }
 
-// export default globalAuthSetup;
+export default globalAuthSetup;
 
 
 /* SAVE AND REUSE AUTH STATE. 2 WAYS:
@@ -29,15 +32,15 @@ The saved auth state allows the browser to recognize that the request comes from
 
 Steps:
 1. Create a separate file for login where you locate the input fields for credentials and perform the login. 
-   At the end, use 'page.context().storageState()' to save the authenticated session to a file path for later reuse.
+   At the end, use 'page.context().storageState()' to save the authenticated session to a file (here auth.json) path for later reuse.
 
 2. In the Playwright config file, add: globalSetup: './global-auth-setup.ts' 
-   (Make sure the path and filename exactly match your global setup file.)
+   (Make sure the path and filename match your global setup file.)
 
 3. In the same config file, add: storageState: './playwright/.auth/auth.json' 
    (Make sure the path and filename exactly match the JSON file where the session is saved.)
 
-   This way login each time with credentials is not needed. Login is only done once from globalAuthSetup() function. Then tests only need to visit test link with goto()
+   This way for login credentials are not needed each time. Login is only done once from globalAuthSetup() function. Then tests only need to visit test link with goto()
    and auth session accesses site directly with no creds. It is done in ReUseAuthPractice.spec.ts and ReUseAuthPractice2.spec.ts files
 
 
@@ -46,7 +49,7 @@ B. By using dependencies:
 This setup is used to store authentication in a test file (dependency-auth-setup.ts), so you don't need to use credentials every time you log in to the website. 
 The saved auth state allows the browser to recognize that the request comes from a previously authenticated session.
 
-Here we comment out these two lines from Option a above in config file:
+Here we comment out these two lines in config file (Option A is based on this globalSetup):
 globalSetup: './global-auth-setup.ts'
 storageState:"./playwright/.auth/auth.json"
 

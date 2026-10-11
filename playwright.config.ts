@@ -16,10 +16,13 @@ For example, if TEST_ENV is set to "dev", it will look for .env.dev file.
 : `./env-files/.env.dev` = If TEST_ENV is not set, it will look for .env.dev file as default.
 `` = is called template literal in JavaScript. It allows you to embed expressions inside string literals using ${expression} syntax.
 */
-
+//
 dotenv.config({
-  path: path.resolve('env-files', '.env') //this means same as above path but simple way
-})
+  path: path.resolve(
+    'env-files',
+    `.env.${process.env.TEST_ENV}`
+  )
+});
 
 export default defineConfig({
   // globalSetup: './global-auth-setup.ts',

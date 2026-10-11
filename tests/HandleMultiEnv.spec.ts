@@ -51,7 +51,8 @@ Explanation:
 - If someone runs the test like this:
     npx playwright test HandleMultiEnv.spec.ts
   without setting the TEST_ENV variable (e.g. `$env:TEST_ENV = "uat"`),
-  then all environment variables will be undefined and test will fail. Because playwright will not know which env is required to run test on
+  then all environment variables will be undefined and test will fail or test will run with default values (if any) in .env.dev file.
+   Because playwright will not know which env is required to run test on
 
 - That's why we use the ternary above in playwright.config.ts:
   ➤ If TEST_ENV is defined, load the matching env file (e.g. `.env.uat`)
@@ -66,7 +67,9 @@ PowerShell: $env:TEST_ENV="uat"
 
 1️⃣ Install cross-env: npm install cross-env
 cross-env ensures your env vars work the same across Windows, macOS, Linux,
-and different shells (PowerShell, Bash, etc).
+and different shells (PowerShell, Bash, etc). With cross-env you do not need to worry about the syntax differences
+for setting env vars in different OS or shells. E.g. powershell uses $env:TEST_ENV="uat" while batch cmd uses set TEST_ENV=dev. 
+cross-env handles this for you.
 
 2️⃣ Add lines below in scripts section of package.json:
 "scripts": {
