@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
-import * as apidata from "../../testData/apiData.json";
+import apidata from "../../testData/apiData.json";
+// alternative: import * as apidata from "../../testData/apiData.json";
 
 test('API Testing - Pass Request body from JSON For Post Call', async ({ request }) => {
     const respPost = await request.post('https://restful-booker.herokuapp.com/booking', {
