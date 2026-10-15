@@ -6,7 +6,7 @@ beforeAll() runs first.
 Then, the tests inside the block run in the order you wrote them (unless parallelized) */
 
 test.describe("Booking lifecycle with token-based auth", () => {
-    let tokenValue: string;
+    let accessToken: string;
     let bookingId: number;
 
     test.beforeAll("Get Auth Token", async ({ request }) => {
@@ -16,7 +16,8 @@ test.describe("Booking lifecycle with token-based auth", () => {
                 "password": "password123"
             }
         });
-        tokenValue = (await respToken.json()).token;
+
+        accessToken = (await respToken.json()).token;
     });
 
     test("Create booking", async ({ request }) => {
@@ -44,7 +45,7 @@ test.describe("Booking lifecycle with token-based auth", () => {
     test("Update booking using token auth", async ({ request }) => {
         const resPut = await request.put(`https://restful-booker.herokuapp.com/booking/${bookingId}`, {
             headers: {
-                Cookie: `token=${tokenValue}`
+                Cookie: `token=${accessToken}`
             },
             data: {
                 "firstname": "Wish",
@@ -67,7 +68,7 @@ test.describe("Booking lifecycle with token-based auth", () => {
     test("Delete booking using token auth", async ({ request }) => {
         const respDelete = await request.delete(`https://restful-booker.herokuapp.com/booking/${bookingId}`, {
             headers: {
-                Cookie: `token=${tokenValue}`
+                Cookie: `token=${accessToken}`
             }
         });
 

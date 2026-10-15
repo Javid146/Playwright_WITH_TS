@@ -1,6 +1,6 @@
-import { test, request, expect } from '@playwright/test';
+import { test, request, expect, APIRequestContext } from '@playwright/test';
 
-let reqContext;
+let reqContext: APIRequestContext;
 
 /*  You can't use `request` directly with baseURL or headers.
  The `request` object is stateless and doesn't retain baseURL or headers.
@@ -75,6 +75,7 @@ test("API Testing Get Practice 7", async ({ request }) => {
     const resp1 = await request.get("/booking/1092");
 
     console.log(await resp1.json());
+
     expect(await resp1.json()).toMatchObject({
         "firstname": "Josh",
         "lastname": "Allen",
@@ -101,6 +102,15 @@ test("API Testing Get Practice 8", async ({ request }) => {
     })
 
     expect(data.firstname).toEqual("Josh");
+});
+
+
+// Dispose of the API request context after all tests finish.
+// If we don't dispose of it, its resources may remain allocated longer than necessary.
+// This helps release resources and ensures proper cleanup.
+
+test.afterAll(async () => {
+    await reqContext.dispose();
 });
 
 

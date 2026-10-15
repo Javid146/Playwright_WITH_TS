@@ -1,14 +1,44 @@
 import { test, expect } from '@playwright/test';
 
-/* 
-- To avoid auth in specific test in a test file this line tells Playwright for this test (or test file), don't use the saved auth. 
-Instead, use a clean, empty session. it is applied to all tests in the file:
-test.use({storageState: {cookies: [], origins: [] }})
+/*
+1. To skip saved authentication (auth.json) session for all tests in a test file, use:
 
-- To avoid auth in specific test in a test file below line needs to be added in test case as line 20
-await context.clearCookies()
+test.use({
+    storageState: {
+        cookies: [],
+        origins: []
+    }
+})
+    
+   - Overrides the saved auth state and starts each test with empty cookies and localStorage.
+   - Best option for testing login from a fresh session.
+   - Does not modify or delete auth.json.
 
-Both lines can work with dependency and globalSetup.
+2. To clear authentication cookies in a specific test, use:
+
+   await context.clearCookies()
+
+   - Clears cookies from the current browser context.
+   - Does NOT clear localStorage or sessionStorage.
+   - If authentication depends only on cookies, the user will need to log in again.
+   - If authentication uses localStorage, the user may remain logged in.
+
+3. Difference between localStorage and sessionStorage:
+
+   - localStorage: Stores browser data (e.g., auth tokens, user preferences).
+     Data survives page refreshes and browser restarts and is shared across
+     tabs of the same website (same origin).
+
+   - sessionStorage: Stores temporary browser data (e.g., auth tokens).
+     Data survives page refreshes but is generally removed when the tab closes.
+     Each tab has its own sessionStorage.
+
+   - Neither is cleared by context.clearCookies().
+   - Playwright auth.json saves cookies and localStorage by default,
+     but NOT sessionStorage.
+
+Both approaches work with globalSetup and project dependencies.
+However, the first option is more reliable for testing without saved authentication.
 */
 
 test.beforeEach(async ({ page }) => {

@@ -6,7 +6,12 @@ test("Fetch and Validate Response Header", async ({ request }) => {
     console.log(headersValue);
     expect(headersValue.server).toEqual("Heroku");
 
-    //it means value of key "x-powered-by" equal to "Express"
+    /*
+    it means value of key "x-powered-by" equal to "Express".
+    Normally, you can access an object property using dot notation: headersValue.contentType.
+    But "x-powered-by" contains hyphens (-), so you cannot write: headersValue.x-powered-by // ❌
+    JavaScript interprets the hyphen as a minus operator. Therefore, you use bracket notation: headersValue["x-powered-by"]  ✅
+    */
     expect(headersValue["x-powered-by"]).toEqual("Express");
 
     console.log("****************************************************************************");

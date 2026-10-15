@@ -1,7 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-//baseURL is initiated in config file
-//delete booking
+//baseURL is initiated in config file. delete booking
 test("Delete Call For API Testing", async ({ request }) => {
     const respDelete = await request.delete("/booking/2", {
         headers: {

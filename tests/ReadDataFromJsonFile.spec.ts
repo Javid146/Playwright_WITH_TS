@@ -41,7 +41,7 @@ workers: process.env.CI ? 1 : 3 // Adjust the number of workers as needed
 */
 
 //forEach
-jsonData.forEach((data) => {
+jsonData.forEach(data => {
 
     test('Add Candidate for Recruitment ' + data.fname, async ({ page }) => {
         await page.getByRole('link', { name: 'Recruitment' }).click();

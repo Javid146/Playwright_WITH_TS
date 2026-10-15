@@ -19,7 +19,7 @@
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
   },
-  "dependencies": {
+  "dependencies": { 
     "cross-env": "^10.0.0",
     "crypto-js": "^4.2.0",
     "csv-parse": "^6.1.0",

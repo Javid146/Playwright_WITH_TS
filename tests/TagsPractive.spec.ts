@@ -16,7 +16,10 @@ test.describe('Describe Block 1', { tag: '@sanity' }, async () => {
 });
 
 // Individual tests with tags outside the describe
-test('Practice Test 4', { tag: ['@UI', '@smoke', '@DB'] }, async () => {
+test('Practice Test 4', { 
+    tag: ['@UI', '@smoke', '@DB'] 
+  }, 
+  async () => {
   console.log('Practice Test 4');
 });
 
