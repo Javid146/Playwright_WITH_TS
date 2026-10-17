@@ -22,11 +22,11 @@ export const test = baseTest.extend<testFixtures, workerFixtures>({
     },
 
 
-    /* Why is it an array? Because Playwright needs extra options (metadata) for some fixtures, and the array allows you to:
+    /* Why is workerFixture an array? Because Playwright needs extra options (metadata) for some fixtures, and the array allows you to:
        workerFixture: [ async ({}, use) => { ... }, { scope: "worker" } ]
        This is my fixture function, and I want it to run once per worker, not once per test.
 
-       Why does the test fixture above does NOTneed extra options? Because Playwright fixtures are test-scoped by default.
+       Why does the test fixture above does NOT need extra options? Because Playwright fixtures are test-scoped by default.
 
        So why [async({}, use)=> empty {} below?
        Because in your current fixture, you are not using any other fixture from context, so it’s just an empty destructured object.
